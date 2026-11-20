@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Strong, unambiguous keyboard focus indicators for accessibility */
+  *:focus-visible {
+    outline: 3px solid #6b3ee8;
+    outline-offset: 2px;
+  }
+
+  /* Respect user reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* High-contrast accessibility override */
+.high-contrast {
+  --anya-bg: #ffffff;
+  --anya-ink: #000000;
+}
+
+.high-contrast body,
+.high-contrast .anya-screen-bg {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.high-contrast .anya-card {
+  border: 2px solid #171426 !important;
+  box-shadow: none !important;
+}
+
+/* Welcome hero soft lavender gradient inspired by design reference */
+.anya-hero-gradient {
+  background: radial-gradient(
+      circle at 50% 34%,
+      rgba(157, 123, 245, 0.45) 0%,
+      rgba(124, 77, 255, 0.18) 38%,
+      rgba(246, 245, 252, 0) 68%
+    ),
+    linear-gradient(180deg, #8761ef 0%, #b7a1f7 44%, #f6f5fc 78%, #f6f5fc 100%);
+}
+
+/* Primary purple pill button matching design reference */
+.anya-cta-gradient {
+  background: linear-gradient(180deg, #7c52f2 0%, #6436e2 100%);
+}
+
+.anya-cta-gradient:hover {
+  background: linear-gradient(180deg, #6e44e8 0%, #5528d4 100%);
+}
+
+/* Clean mobile scrolling */
+.anya-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.anya-scroll::-webkit-scrollbar {
+  display: none;
+}

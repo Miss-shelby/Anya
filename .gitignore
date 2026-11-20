@@ -1,0 +1,16 @@
+# Environments & secrets
+.env
+backend/.env
+
+# Node
+node_modules/
+frontend/dist/
+
+# Python
+__pycache__/
+*.pyc
+backend/.venv/
+
+# OS / Editor
+.DS_Store
+Thumbs.db

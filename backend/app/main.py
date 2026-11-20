@@ -24,6 +24,15 @@ app.include_router(vision.router)
 app.include_router(banking.router)
 
 
+@app.get("/")
+def root():
+    return {
+        "status": "ok",
+        "service": "anya-backend",
+        "health": "/api/health",
+    }
+
+
 @app.get("/api/health")
 def health_check():
     return {

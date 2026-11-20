@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANYA — Hackathon Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f5fc;
+        --canvas: #171426;
+        --surface: #ffffff;
+        --soft: #eeebfa;
+        --border: #e4e0f5;
+        --primary: #6b3ee8;
+        --primary-deep: #4c24ba;
+        --ink: #171426;
+        --muted: #4b4666;
+        --success: #157f56;
+        --warning: #a65d03;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background: #141124;
+        color: var(--ink);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 20px 84px;
+      }
+
+      .deck {
+        width: 100%;
+        max-width: 1120px;
+        position: relative;
+      }
+
+      .slide {
+        display: none;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: var(--bg);
+        border-radius: 28px;
+        padding: 48px 56px;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+        position: relative;
+        overflow: hidden;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      .slide-hero {
+        background:
+          radial-gradient(circle at 78% 42%, rgba(157, 123, 245, 0.42) 0%, rgba(246, 245, 252, 0) 52%),
+          linear-gradient(135deg, #6b3ee8 0%, #8b66f2 42%, #f6f5fc 100%);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        width: fit-content;
+      }
+
+      .badge-white {
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--primary);
+      }
+
+      .badge-green {
+        background: #e3f7ef;
+        color: var(--success);
+      }
+
+      .badge-amber {
+        background: #fef3dc;
+        color: var(--warning);
+      }
+
+      h1 {
+        font-size: clamp(32px, 4.2vw, 54px);
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+      h2 {
+        font-size: clamp(24px, 3vw, 38px);
+        font-weight: 800;
+        line-height: 1.14;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-top: 10px;
+      }
+
+      .subtitle {
+        font-size: clamp(15px, 1.55vw, 20px);
+        color: var(--muted);
+        line-height: 1.5;
+        margin-top: 12px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 22px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: 20px;
+        padding: 20px 22px;
+        box-shadow: 0 6px 24px rgba(45, 29, 102, 0.06);
+      }
+
+      .card-accent {
+        border: 2px solid var(--primary);
+        background: #ffffff;
+      }
+
+      .card h3 {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 6px;
+      }
+
+      .card p,
+      .card li {
+        font-size: 13.5px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+
+      .card ul {
+        padding-left: 18px;
+        margin-top: 6px;
+      }
+
+      .card li + li {
+        margin-top: 4px;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 32px;
+        align-items: center;
+        flex: 1;
+      }
+
+      .mascot-ring {
+        width: 260px;
+        height: 260px;
+        border-radius: 999px;
+        background: #ede9fe;
+        border: 8px solid rgba(255, 255, 255, 0.85);
+        box-shadow: 0 24px 60px rgba(76, 36, 186, 0.32);
+        overflow: hidden;
+        margin: 0 auto;
+      }
+
+      .mascot-ring img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-title {
+        color: #ffffff;
+        text-shadow: 0 4px 24px rgba(23, 20, 38, 0.22);
+      }
+
+      .hero-copy {
+        color: rgba(255, 255, 255, 0.94);
+        font-size: 18px;
+        line-height: 1.55;
+        margin-top: 14px;
+        max-width: 560px;
+      }
+
+      .slide-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        padding-top: 14px;
+        border-top: 1px solid rgba(107, 62, 232, 0.12);
+      }
+
+      .slide-hero .slide-footer {
+        color: #2b2348;
+        border-top-color: rgba(255, 255, 255, 0.35);
+      }
+
+      .arch-flow {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        align-items: stretch;
+        margin-top: 22px;
+      }
+
+      .arch-step {
+        background: #ffffff;
+        border: 1.5px solid var(--border);
+        border-radius: 18px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .arch-step strong {
+        font-size: 14px;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .arch-step p {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .demo-steps {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .step-num {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .feature-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+        background: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 24px rgba(45, 29, 102, 0.06);
+      }
+
+      .feature-table th,
+      .feature-table td {
+        padding: 11px 16px;
+        text-align: left;
+        font-size: 13px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .feature-table th {
+        background: var(--soft);
+        color: var(--primary);
+        font-weight: 800;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .feature-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Bottom floating presentation toolbar */
+      .toolbar {
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(23, 20, 38, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(12px);
+        padding: 8px 14px;
+        border-radius: 999px;
+        color: #ffffff;
+        z-index: 50;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      }
+
+      .toolbar button {
+        border: none;
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 8px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.15s ease;
+      }
+
+      .toolbar button:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
+
+      .toolbar button.primary-btn {
+        background: var(--primary);
+      }
+
+      .toolbar button.primary-btn:hover {
+        background: #7c52f2;
+      }
+
+      .counter {
+        font-size: 13px;
+        font-weight: 700;
+        padding: 0 8px;
+        color: #ddd6fe;
+      }
+
+      /* Clean 1-slide-per-page PDF export via Print */
+      @media print {
+        @page {
+          size: landscape;
+          margin: 0;
+        }
+        body {
+          background: #ffffff;
+          padding: 0;
+          display: block;
+        }
+        .toolbar {
+          display: none !important;
+        }
+        .deck {
+          max-width: none;
+        }
+        .slide {
+          display: flex !important;
+          width: 100vw;
+          height: 100vh;
+          aspect-ratio: auto;
+          border-radius: 0;
+          box-shadow: none;
+          page-break-after: always;
+          break-after: page;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck" id="deck">
+      <!-- SLIDE 1: TITLE -->
+      <section class="slide slide-hero active">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="badge badge-white">ANYA · Innovation Hackathon MVP</span>
+          <span class="badge badge-white">Voice-First Accessibility AI</span>
+        </div>
+
+        <div class="hero-layout">
+          <div>
+            <h1 class="hero-title">ANYA</h1>
+            <p style="font-size:26px; font-weight:800; color:#fff; margin-top:8px;">
+              Your world, within reach.
+            </p>
+            <p class="hero-copy">
+              A hands-free, eyes-free AI digital companion built for blind and visually impaired
+              Nigerians — identify Naira notes, read text, understand surroundings, and navigate
+              everyday smartphone tasks just by saying <strong>&ldquo;Anya.&rdquo;</strong>
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:22px;">
+              <span class="badge badge-white">Nigerian English &amp; Pidgin</span>
+              <span class="badge badge-white">Naira Detection</span>
+              <span class="badge badge-white">Hands-Free Wake Word</span>
+            </div>
+          </div>
+
+          <div style="text-align:center;">
+            <div class="mascot-ring">
+              <img src="anya-mascot.jpg" alt="ANYA AI Companion Mascot" />
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>github.com/Miss-shelby/Anya</span>
+          <span>Slide 1 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: THE PROBLEM -->
+      <section class="slide">
+        <div>
+          <span class="badge">01 · The Problem</span>
+          <h2>Smartphones assume sight — excluding millions of blind &amp; low-vision Nigerians.</h2>
+          <p class="subtitle">
+            Everyday independence shouldn&apos;t require asking a stranger to count your money or
+            read a private document.
+          </p>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Cash Vulnerability</h3>
+              <p>
+                Handling Nigerian Naira notes (classic &amp; redesigned CBN notes) without sight
+                creates daily friction and risk at markets, buses, and shops.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Foreign Assistants Don&apos;t Fit</h3>
+              <p>
+                Global voice assistants struggle with Nigerian-accented English, Pidgin, Igbo, and
+                Yoruba — forcing unnatural speech.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Button-Heavy Interfaces</h3>
+              <p>
+                Most &ldquo;accessible&rdquo; apps still require hunting for small on-screen buttons
+                just to tap a microphone or snap a photo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 2 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: OUR SOLUTION -->
+      <section class="slide">
+        <div>
+          <span class="badge">02 · Our Solution</span>
+          <h2>Meet ANYA: Setup once, then control everything by voice.</h2>
+          <p class="subtitle">
+            Accessibility is the core architecture — not a bolted-on feature.
+          </p>
+
+          <div class="grid-3">
+            <div class="card card-accent">
+              <h3>1. Siri-Style &ldquo;Anya&rdquo; Wake Word</h3>
+              <p>
+                After a one-time setup, say <strong>&ldquo;Anya&rdquo;</strong> from <em>any</em>
+                screen. ANYA chimes, asks how to help, and executes — zero buttons required.
+              </p>
+            </div>
+            <div class="card card-accent">
+              <h3>2. Built for Nigerian Speech</h3>
+              <p>
+                Understands natural Nigerian English and Nigerian Pidgin (<em>&ldquo;How much money
+                dey my hand?&rdquo;</em>) with an extensible language architecture for Igbo &amp;
+                Yoruba.
+              </p>
+            </div>
+            <div class="card card-accent">
+              <h3>3. Real-World Vision + Action</h3>
+              <p>
+                Hands-free auto-capture camera identifies Naira denominations, describes rooms &amp;
+                objects, reads documents aloud, and guides calls, messaging &amp; banking.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 3 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: WORKING MVP TODAY -->
+      <section class="slide">
+        <div>
+          <span class="badge">03 · What We Built (Live MVP)</span>
+          <h2>11 accessible mobile-first screens — live and demonstrable today.</h2>
+
+          <table class="feature-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Status</th>
+                <th>What Works Today</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Global &ldquo;Anya&rdquo; Wake Companion</strong></td>
+                <td><span class="badge badge-green">Live</span></td>
+                <td>Always-on wake listening across every task screen + instant &lt;50ms command routing.</td>
+              </tr>
+              <tr>
+                <td><strong>Nigerian Naira Detection</strong></td>
+                <td><span class="badge badge-green">Live</span></td>
+                <td>Auto-capture camera + Gemini vision identifies ₦5–₦1,000 notes, totals them, &amp; flags unclear photos.</td>
+              </tr>
+              <tr>
+                <td><strong>Object &amp; Scene Recognition</strong></td>
+                <td><span class="badge badge-green">Live</span></td>
+                <td>Answers <em>&ldquo;What&apos;s in front of me?&rdquo;</em> / <em>&ldquo;What colour?&rdquo;</em> with spoken spatial cues.</td>
+              </tr>
+              <tr>
+                <td><strong>Document &amp; Text Reading</strong></td>
+                <td><span class="badge badge-green">Live</span></td>
+                <td>Extracts receipts/labels, summarizes long text, highlights dates/amounts/names, with Stop/Repeat.</td>
+              </tr>
+              <tr>
+                <td><strong>WhatsApp &amp; Call Voice Agent</strong></td>
+                <td><span class="badge badge-amber">Simulated + Handoff</span></td>
+                <td>Step-by-step hands-free dialog with confirmation + real <code>wa.me</code> / <code>sms:</code> / <code>tel:</code> launch.</td>
+              </tr>
+              <tr>
+                <td><strong>Nigerian Banking Accessibility</strong></td>
+                <td><span class="badge badge-amber">Simulated</span></td>
+                <td>Clearly labeled demo account (₦45,500 balance &amp; transactions) spoken aloud — zero PINs/OTPs.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 4 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: ARCHITECTURE -->
+      <section class="slide">
+        <div>
+          <span class="badge">04 · Technical Architecture</span>
+          <h2>Fast hybrid routing + Gemini multimodal AI, modular for native Android.</h2>
+
+          <div class="arch-flow">
+            <div class="arch-step">
+              <strong>1. Wake &amp; Capture</strong>
+              <p>Global &ldquo;Anya&rdquo; wake engine + gentle audio earcons + hands-free camera countdown.</p>
+            </div>
+            <div class="arch-step">
+              <strong>2. Instant Router</strong>
+              <p>Core accessibility commands route in &lt;50ms locally with zero cloud stall.</p>
+            </div>
+            <div class="arch-step">
+              <strong>3. FastAPI Backend</strong>
+              <p>Python + Pydantic strict schemas + Pillow in-memory image prep (zero disk storage).</p>
+            </div>
+            <div class="arch-step">
+              <strong>4. Gemini Flash</strong>
+              <p>Multimodal audio, Naira/scene/OCR vision &amp; multi-model failover across Flash models.</p>
+            </div>
+            <div class="arch-step">
+              <strong>5. Spoken UI</strong>
+              <p>React + TypeScript + Tailwind mobile viewport with TTS, Stop/Repeat &amp; High Contrast.</p>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-top:18px;">
+            <div class="card">
+              <h3>Frontend Stack</h3>
+              <p>React 19, TypeScript, Vite, Tailwind CSS, React Router, Lucide Icons, Web Speech &amp; Media APIs.</p>
+            </div>
+            <div class="card">
+              <h3>Backend &amp; AI Stack</h3>
+              <p>Python, FastAPI, Pydantic, Pillow, Google GenAI SDK (<code>gemini-3.5-flash-lite</code> + auto failover).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 5 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: LIVE DEMO FLOW -->
+      <section class="slide">
+        <div>
+          <span class="badge">05 · Live Demo Script (2 Minutes)</span>
+          <h2>End-to-end eyes-free chaining without ever returning to Home.</h2>
+
+          <div class="demo-steps">
+            <div class="card">
+              <div class="step-num">1</div>
+              <h3>Wake Hands-Free</h3>
+              <p>Say <strong>&ldquo;Anya&rdquo;</strong> → ANYA chimes &amp; asks: <em>&ldquo;Yes, I&apos;m here. What would you like me to do?&rdquo;</em></p>
+            </div>
+            <div class="card">
+              <div class="step-num">2</div>
+              <h3>Count Naira</h3>
+              <p>Say <strong>&ldquo;How much money dey my hand?&rdquo;</strong> → Auto-opens camera, counts down, speaks total ₦.</p>
+            </div>
+            <div class="card">
+              <div class="step-num">3</div>
+              <h3>Bank Balance</h3>
+              <p>Right from Naira screen, say <strong>&ldquo;Anya, what is my account balance?&rdquo;</strong> → Speaks ₦45,500 demo balance.</p>
+            </div>
+            <div class="card">
+              <div class="step-num">4</div>
+              <h3>WhatsApp Agent</h3>
+              <p>Say <strong>&ldquo;Anya, send WhatsApp&rdquo;</strong> → <em>&ldquo;Send Big Sis I am coming home&rdquo;</em> → Confirms &amp; completes.</p>
+            </div>
+            <div class="card">
+              <div class="step-num">5</div>
+              <h3>Read / See</h3>
+              <p>Say <strong>&ldquo;Anya, what is in front of me?&rdquo;</strong> or <strong>&ldquo;Read this document&rdquo;</strong> → Auto-captures &amp; speaks.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 6 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: ACCESSIBILITY & PRIVACY -->
+      <section class="slide">
+        <div>
+          <span class="badge">06 · Privacy, Safety &amp; Accessibility First</span>
+          <h2>Built responsibly for vulnerable users from day one.</h2>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Accessibility Built-In</h3>
+              <ul>
+                <li>Large ≥48px touch targets, semantic HTML &amp; keyboard focus rings.</li>
+                <li>High Contrast Mode, Larger Text, Speaking Speed &amp; <code>aria-live</code> regions.</li>
+                <li>Status never relies on colour alone; instant <strong>Stop / Repeat</strong> everywhere.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Privacy &amp; Honesty Guardrails</h3>
+              <ul>
+                <li>Captured photos &amp; voice clips stay strictly <strong>in memory</strong> — never saved on disk.</li>
+                <li>Refuses to invent Naira totals when notes are blurry, stacked, or dark.</li>
+                <li>Never asks for bank PINs, passwords, or OTPs; clearly labels simulations &amp; non-mobility-aid limits.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 7 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: WHAT'S LEFT / ROADMAP -->
+      <section class="slide">
+        <div>
+          <span class="badge">07 · Future Integrations &amp; Roadmap</span>
+          <h2>From Hackathon Web MVP to Native Android Everyday Companion.</h2>
+
+          <div class="grid-4">
+            <div class="card card-accent">
+              <span class="badge" style="margin-bottom:8px;">Phase 1</span>
+              <h3>Native Android + AccessibilityService</h3>
+              <p>
+                True OS-level control inside third-party apps: hands-free WhatsApp voice calls,
+                reading incoming texts, toggling Wi-Fi &amp; real Contacts integration.
+              </p>
+            </div>
+            <div class="card">
+              <span class="badge" style="margin-bottom:8px;">Phase 2</span>
+              <h3>Offline YOLOv8 Naira Model</h3>
+              <p>
+                Train a custom lightweight YOLOv8 detector on labelled classic + redesigned Naira
+                notes for instant, zero-data offline cash counting.
+              </p>
+            </div>
+            <div class="card">
+              <span class="badge" style="margin-bottom:8px;">Phase 3</span>
+              <h3>Nigerian ASR &amp; Neural Voices</h3>
+              <p>
+                Fine-tuned speech recognition &amp; natural Nigerian voices for Pidgin, Igbo,
+                Yoruba &amp; Hausa — field-tested with blind users in noisy environments.
+              </p>
+            </div>
+            <div class="card">
+              <span class="badge" style="margin-bottom:8px;">Phase 4</span>
+              <h3>Open Banking &amp; Wearables</h3>
+              <p>
+                Licensed CBN Open Banking / Mono read-only balance narration with biometrics, plus
+                Bluetooth earpiece &amp; haptic framing cues.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 8 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: IMPACT & SCALABILITY -->
+      <section class="slide">
+        <div>
+          <span class="badge">08 · Impact &amp; Market Opportunity</span>
+          <h2>Starting in Nigeria, built to scale across Africa.</h2>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Financial Independence</h3>
+              <p>
+                Private, confident cash handling and accessible financial literacy for millions of
+                blind and visually impaired Nigerians.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Everyday Dignity</h3>
+              <p>
+                Read prescriptions, receipts, bills, and messages independently — reducing daily
+                reliance on sighted bystanders.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Pan-African Expansion</h3>
+              <p>
+                Modular currency &amp; language registry expands cleanly to Ghana Cedis, West
+                African CFA, Hausa, Twi, and Swahili.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — Your world, within reach.</span>
+          <span>Slide 9 / 10</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: CLOSING -->
+      <section class="slide slide-hero">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="badge badge-white">Thank You</span>
+          <span class="badge badge-white">Live Q&amp;A &amp; Demo</span>
+        </div>
+
+        <div class="hero-layout">
+          <div>
+            <h1 class="hero-title">Your world,<br />within reach.</h1>
+            <p class="hero-copy">
+              ANYA brings voice-first independence to blind and visually impaired people — starting
+              with Nigerian speech, Naira currency, and eyes-free everyday navigation.
+            </p>
+            <div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap;">
+              <span class="badge badge-white">GitHub: github.com/Miss-shelby/Anya</span>
+              <span class="badge badge-white">Built with React · FastAPI · Gemini</span>
+            </div>
+          </div>
+
+          <div style="text-align:center;">
+            <div class="mascot-ring">
+              <img src="anya-mascot.jpg" alt="ANYA AI Companion Mascot" />
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <span>ANYA — AI-Powered Accessibility Companion</span>
+          <span>Slide 10 / 10</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- Interactive Navigation & PDF Export Toolbar -->
+    <nav class="toolbar" aria-label="Slide controls">
+      <button type="button" id="prevBtn">← Prev</button>
+      <span class="counter" id="counter">1 / 10</span>
+      <button type="button" id="nextBtn">Next →</button>
+      <button type="button" id="fsBtn">Fullscreen</button>
+      <button type="button" class="primary-btn" id="pdfBtn">Export PDF</button>
+    </nav>
+
+    <script>
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const counter = document.getElementById('counter');
+      let current = 0;
+
+      function showSlide(index) {
+        current = (index + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        counter.textContent = `${current + 1} / ${slides.length}`;
+      }
+
+      document.getElementById('prevBtn').addEventListener('click', () => showSlide(current - 1));
+      document.getElementById('nextBtn').addEventListener('click', () => showSlide(current + 1));
+      document.getElementById('pdfBtn').addEventListener('click', () => window.print());
+      document.getElementById('fsBtn').addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          showSlide(current + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          showSlide(current - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          document.getElementById('fsBtn').click();
+        }
+      });
+    </script>
+  </body>
+</html>
